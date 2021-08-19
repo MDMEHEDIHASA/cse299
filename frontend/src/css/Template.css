@@ -1,0 +1,45 @@
+.template_section{
+    background-color: #f4f4f4;
+    /* background-color: aqua; */
+    padding-bottom: 2.4rem;
+    padding-top: 0.48rem;
+}
+
+.template_top{
+    margin:0 180px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.template_right{
+    display: flex;
+}
+
+.gallery_button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.card_image{
+    width: 12%;
+}
+
+.card_image:hover{
+    cursor: pointer;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 2px solid #fffdf7;
+    box-shadow: 5px 5px 15px gainsboro;
+}

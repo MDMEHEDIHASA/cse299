@@ -1,0 +1,31 @@
+{
+  "name": "cse299",
+  "version": "1.0.0",
+  "description": "Quiz",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Mehedi",
+  "license": "ISC",
+  "dependencies": {
+    "async-handler": "0.0.3",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mdbreact": "^5.1.0",
+    "mongodb": "^4.0.1",
+    "mongoose": "^5.13.5",
+    "nodemailer": "^6.6.3",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "nodemon": "^2.0.12",
+    "redux-devtools-extension": "^2.13.9"
+  }
+}

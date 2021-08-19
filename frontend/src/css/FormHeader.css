@@ -1,0 +1,38 @@
+.form_header{
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 2px 2px 25px lavenderblush;
+    height: 5rem;
+}
+
+.fromImage{
+    width: 3%;
+    padding: 0 0.5rem;
+    cursor: pointer; 
+}
+
+
+.userImage2{
+    border-radius: 50%;
+    width: 5%;
+}
+
+
+
+.form_header_left{
+    display: flex;
+    align-items: center;
+
+}
+
+.from_header_right{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 18rem;
+    gap: 2%;
+}
+
