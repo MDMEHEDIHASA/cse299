@@ -34,6 +34,7 @@ import { DragDropContext, Droppable,Draggable } from "react-beautiful-dnd";
 import {createForm} from '../actions/createFormAction'
 // import Loader from '../screen/Loader';
 import ErrorMessage from '../screen/ErrorMessage'
+import Loader from "../screen/Loader";
 
 
 
@@ -47,8 +48,14 @@ const QuestionForm = () => {
    const history = useHistory()
    const location = useLocation()
 
+   const userLogIn  = useSelector(state=>state.userLogIn);
+
+   const {isLoading:isLoading2,userInfo,error:error2} = userLogIn;
+
    const questionState = useSelector(state=>state.createFormData)
    const {isLoading,allQuestions,error} = questionState
+   const userId = userInfo._id;
+   console.log(userId)
    
    console.log(allQuestions)
    let allQuestions2=[]
@@ -78,8 +85,7 @@ const QuestionForm = () => {
    
   const submitHandler = async(e)=>{
         e.preventDefault()
-        dispatch(createForm(questionId,documentName,documentDescription,uniqueCode))
-        console.log(isLoading)
+        dispatch(createForm(questionId,documentName,documentDescription,uniqueCode,userId))
     }
 
 
@@ -312,7 +318,7 @@ const QuestionForm = () => {
                       </div>
                       <CropOriginal style={{color:'#5f6368'}}/>
                       <IconButton aria-label='delete'>
-                          <Close onClick={()=>removeOption(i,j)}/>
+                          <button id='closebtn' onClick={()=>removeOption(i,j)}>x</button>
                       </IconButton>
                   </div>
               ))}
@@ -379,7 +385,10 @@ const QuestionForm = () => {
 
   return(
     <>
+    
+    {isLoading2 && <Loader/>}
     {error && <ErrorMessage variant='negative' children={error}></ErrorMessage>}
+    {error2 && <ErrorMessage variant='negative' children={error2}></ErrorMessage>}
     <div>
     
     <div className="question_form">
@@ -422,7 +431,7 @@ const QuestionForm = () => {
         
       </div>
       <form onSubmit={submitHandler} method='post'>
-        <button style={{position:'absolute',right:'27rem'}} onClick={()=>{setQuestionId(questions)}} className="ui primary button">Submit</button>
+        <button style={{width: '8rem',position: 'absolute',right: '25%'}} onClick={()=>{setQuestionId(questions)}} className="ui primary button">Submit</button>
       </form>
     </div>
     {/* <Link to={{pathname:'/finish',state: {fulldetails:{documentName,documentDescription,questions}},}}>

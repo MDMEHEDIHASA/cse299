@@ -26,5 +26,19 @@ export const userSignInReducer = (state={},action)=>{
 }
 
 
+export const generateCodeReducer = (state={},action)=>{
+    switch(action.type){
+        case 'CODE_LOADING':
+            return {isLoading:true}
+        case 'CODE_SUCCESS':
+            return {...state,isLoading:false,generateCode:action.payload.generateCode}
+        case 'CODE_FAIL':
+            return {...state,isLoading:false,error:action.payload.error}
+        default:
+            return state
+    }
+}
+
+
 /*case 'USER_LOGOUT':
 return{}*/

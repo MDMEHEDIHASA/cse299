@@ -6,13 +6,16 @@ import "../css/signuppage.css";
 import ErrorMessage from "../screen/ErrorMessage";
 import Loader from "../screen/Loader";
 import HomePageHeader from "../screen/HomePageHeader";
+import {generateCodeAction} from '../actions/userAction'
 
 const GenerateCode = ({history}) => {
-    const [generateCode,setGenerateCode] = useState('')
-    const [password,setPassword] = useState('')
+    const [questionCode,setQuestionCode] = useState('')
+    // const [password,setPassword] = useState('')
     const dispatch = useDispatch();
     const signInInfo = useSelector(state=>state.userLogIn)
+    const generateQuestionCode = useSelector(state=>state.codeGenerate)
     const {isLoading,userInfo,error} = signInInfo;
+    const {isLoading:Loading,generateCode,error:error2} = generateQuestionCode;
     
     useEffect(()=>{
         if(userInfo.isStudent){
@@ -25,18 +28,32 @@ const GenerateCode = ({history}) => {
             history.push('/')
         }
     },[userInfo,history])
+
+    useEffect(()=>{
+        if(generateCode && generateCode.questions){
+            history.push('/getQuestion')
+        }
+        if(!generateCode){
+            history.push('/generateCode')
+        }
+    },[generateCode,history])
+
     const submitHandler = (e)=>{
         e.preventDefault()
-        // dispatch(signInAction({email,password}))
+        dispatch(generateCodeAction(questionCode))
     }
-  return (<div className='center'>
+  return (<div>
+      <div style={{background:'cadetblue'}}>
+      <HomePageHeader/>
+      </div>
+      <div className='center'>
       {isLoading && <Loader/>}
       {error && <ErrorMessage top='-7%' variant='negative' children={error}/>}
-      
+      {error2 && <ErrorMessage top='-11%' variant='negative' children={error2}/>}
       <p style={{textAlign:'center'}}>Hello {userInfo.name}</p>
       <form onSubmit={submitHandler}>
         <div class="txt_field">
-          <input value={generateCode} name='generateCode' onChange={(e)=>setGenerateCode(e.target.value)} type="text" required/>
+          <input value={questionCode} name='questionCode' onChange={(e)=>setQuestionCode(e.target.value)} type="text" required/>
           <span></span>
           <label>Write the code for the exam.</label>
         </div>
@@ -45,7 +62,9 @@ const GenerateCode = ({history}) => {
         <Link to="/">Go Back</Link>
         </div>
       </form>
-  </div>);
+     </div>
+    </div>
+      );
 };
 
 export default GenerateCode;

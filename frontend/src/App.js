@@ -11,6 +11,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import SignInPage from "./screen/SignInPage";
 import SignUpPage from "./screen/SignUpPage";
 import GenerateCode from "./components/GenerateCode";
+import QuizQuestion from './components/QuizQuestion'
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
           <FormHeader/>
           {/* <CenterTab/> */}
           <QuestionForm/>
+          </Route>
+          <Route path='/getQuestion' exact>
+            <QuizQuestion/>
           </Route>
         <Route path='/finish' exact component={Finish}>
         </Route>

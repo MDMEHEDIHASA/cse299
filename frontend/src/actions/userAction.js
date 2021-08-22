@@ -61,9 +61,42 @@ export const signInAction = ({email,password})=>async(dispatch,getState)=>{
 }
 
 
+export const generateCodeAction = (code)=>async(dispatch,getState)=>{
+  try{
+    dispatch({type:"CODE_LOADING"})
+    const {userLogIn} = getState();
+    const {userInfo} = userLogIn;
+    const config = {
+      headers:{
+        'Content-Type':'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    
+    const {data} = await axios.post('/generateCode',{code},config)
+
+    dispatch({
+      type:"CODE_SUCCESS",
+      payload:{
+        generateCode:data
+      }
+    })
+    localStorage.setItem('generateCode',JSON.stringify(data))
+  }catch(error){
+    dispatch({
+        type:'CODE_FAIL',
+        payload:{
+          error: error.response && error.response.data ? error.response.data : error.message
+        }
+      })
+}
+}
+
+
 export const LogoutAction = ()=>async(dispatch)=>{
   localStorage.removeItem('userInfo')
   localStorage.removeItem('allQuestions')
+  localStorage.removeItem('generateCode')
   dispatch({type:'USER_LOGOUT'})
   document.location.href='/signin'
 }

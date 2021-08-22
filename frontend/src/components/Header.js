@@ -18,7 +18,7 @@ const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch()
   useEffect(()=>{
-    if(userInfo.isStudent){
+    if(userInfo && userInfo.isStudent){
       history.push('/blankForm')
     }else{
       history.push('/')

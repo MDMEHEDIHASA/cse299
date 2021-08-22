@@ -1,15 +1,18 @@
 import axios from "axios";
 
 
-export const createForm = (questions,documentName,documentDescription,uniqueCode) => async (dispatch) => {
+export const createForm = (questions,documentName,documentDescription,uniqueCode,userId) => async (dispatch,getState) => {
   try {
     dispatch({type:'CREATE_FORM_LOADING'})
+    const {userLogIn} = getState()
+    const {userInfo} = userLogIn
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type':'application/json',
+        Authorization: `Bearer ${userInfo.token}`
       },
     };
-    const { data } = await axios.post("/createForm",{ questions,documentName,documentDescription,uniqueCode},config);
+    const { data } = await axios.post("/createForm",{ questions,documentName,documentDescription,uniqueCode,userId},config);
     dispatch({
       type: 'CREATE_FORM',
       payload: {

@@ -20,7 +20,7 @@ const SignInPage = ({history}) => {
       }else if(userInfo &&userInfo.isStudent === false){
         history.push('/')
       }
-    },[dispatch,userInfo])
+    },[dispatch,userInfo,history])
 
     const submitHandler = (e)=>{
         e.preventDefault()

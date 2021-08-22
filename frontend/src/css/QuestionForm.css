@@ -136,6 +136,13 @@ input {
   border-bottom: 1.5px solid rgb(103, 58, 183);
 }
 
+
+#closebtn{
+  padding: 0 3px 0 3px;
+  border-radius: 24px;
+  background: darkslateblue
+}
+
 .add_footer {
   padding: 0px 34px;
   display: flex;

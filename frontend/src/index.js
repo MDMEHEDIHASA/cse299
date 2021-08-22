@@ -15,10 +15,12 @@ import thunk from 'redux-thunk'
 
 const allQuestionsFromStorage = localStorage.getItem('allQuestions') ? JSON.parse(localStorage.getItem('allQuestions')) :[];
 const userInfoFromStroage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) :null;
+const getQuestionFromStorage = localStorage.getItem('generateCode') ? JSON.parse(localStorage.getItem('generateCode')) : {}
 
 const initalState={
   createFormData:{allQuestions:allQuestionsFromStorage,isLoading:true},
-  userLogIn:{userInfo:userInfoFromStroage}
+  userLogIn:{userInfo:userInfoFromStroage},
+  codeGenerate:{generateCode:getQuestionFromStorage}
 
 }
 
