@@ -15,37 +15,43 @@ const transport =  nodemailer.createTransport(sendgridTransport({
 
 
 exports.postMarksController = async(req, res, next) => {
-  const { solutions,email } =  req.body;
-  const questionForm = await CreateForm.find();
-  console.log(questionForm)
+  const { solutions,code} =  req.body;
+  console.log(solutions)
+  const email = req.user.email;
+  const questionForm = await CreateForm.findOne({uniqueCode:code});
+  //console.log(questionForm)
   let points = 0;
   let totalPoints = 0;
-  const questionsFormQuestion = questionForm[0].questions
-  
+  const questionsFormQuestion = questionForm.questions
+  console.log(questionsFormQuestion);
   try {
       questionsFormQuestion.forEach(pt=>{
           totalPoints += pt.points;
       })
-    for (let i = 0; i < solutions.length; i++) {
-      if (solutions[i].question === questionsFormQuestion[i].questionText) {
-        if ((solutions[i].value === questionsFormQuestion[i].answerKey)) {
-          points += questionsFormQuestion[i].points;
-        } else {
-          points = totalPoints - questionsFormQuestion[i].points;
+      if(questionsFormQuestion.length !== solutions.length){
+        res.status(401).send(JSON.stringify("Fill up all the values."))
+      }else{
+        for (let i = 0; i < solutions.length; i++) {
+          if (solutions[i].questionText === questionsFormQuestion[i].questionText) {
+            if ((solutions[i].userAnswer === questionsFormQuestion[i].answerKey)) {
+              points += questionsFormQuestion[i].points;
+            } else {
+              points = totalPoints - questionsFormQuestion[i].points;
+            }
+          } else {
+            res.send("No question match.");
+          }
         }
-      } else {
-        res.send("No question match.");
+        res.json(points);
+        transport.sendMail({
+          to:email,
+          from:'mhd7894@outlook.com',
+          subject:'Your quiz point',
+          text:"Thank you for this quiz",
+          html:`<h1>You got ${points}/${totalPoints}</h1>`
+      })
       }
-    }
-    res.json(points);
-    transport.sendMail({
-      to:email,
-      from:'mhd7894@outlook.com',
-      subject:'Your quiz point',
-      text:"Thank you for this quiz",
-      html:`<h1>You got ${points}/${totalPoints}</h1>`
-  })
   } catch(err){
-    console.log(err);
+    res.status(401).send(JSON.stringify("Something went wrong."));
   }
 };

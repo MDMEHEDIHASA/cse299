@@ -21,7 +21,7 @@ const HomePageHeader = ()=>{
         <div class="navigation">
           {(userInfo && userInfo.name) ?
           <div style={{display:'flex',gap:'12%'}}>
-          <button  className="btn">{userInfo.name}</button>
+          <Link to='/profile' className="btn" style={{background:'none'}}><button  className="btn">{userInfo.name}</button></Link>
           <button onClick={()=>{dispatch(LogoutAction())}} className="btn">Logout</button>
           </div>
           :

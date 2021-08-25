@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export const createForm = (questions,documentName,documentDescription,uniqueCode,userId) => async (dispatch,getState) => {
+export const createForm = (questions,documentName,documentDescription,uniqueCode) => async (dispatch,getState) => {
   try {
     dispatch({type:'CREATE_FORM_LOADING'})
     const {userLogIn} = getState()
@@ -12,7 +12,7 @@ export const createForm = (questions,documentName,documentDescription,uniqueCode
         Authorization: `Bearer ${userInfo.token}`
       },
     };
-    const { data } = await axios.post("/createForm",{ questions,documentName,documentDescription,uniqueCode,userId},config);
+    const { data } = await axios.post("/createForm",{ questions,documentName,documentDescription,uniqueCode},config);
     dispatch({
       type: 'CREATE_FORM',
       payload: {

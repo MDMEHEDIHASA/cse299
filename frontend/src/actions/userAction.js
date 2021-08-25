@@ -100,3 +100,59 @@ export const LogoutAction = ()=>async(dispatch)=>{
   dispatch({type:'USER_LOGOUT'})
   document.location.href='/signin'
 }
+
+
+export const getUserProfile  = ()=>async(dispatch,getState)=>{
+  try{
+  dispatch({type:'USER_PROFILE_LOADING'})
+  const {userLogIn} = getState();
+  const {userInfo} = userLogIn;
+  const config = {
+    headers:{
+      'Content-Type':'application/json',
+       Authorization:`Bearer ${userInfo.token}`
+    }
+  }
+
+  const {data} = await axios.get('/profile',config)
+  dispatch({
+    type:'USER_PROFILE_SUCCESS',
+    payload:{
+      getProfile:data
+    }
+  })
+  }catch(error){
+    dispatch({
+      type:"USER_PROFILE_FAIL",
+      error: error.response && error.response.data ? error.response.data : error.message
+    })
+  }
+}
+
+export const updateUserProfile  = ({name,email,password})=>async(dispatch,getState)=>{
+  try{
+  dispatch({type:'UPDATE_USER_PROFILE_LOADING'})
+  const {userLogIn} = getState();
+  const {userInfo} = userLogIn;
+  const config = {
+    headers:{
+      'Content-Type':'application/json',
+       Authorization:`Bearer ${userInfo.token}`
+    }
+  }
+
+  const {data} = await axios.put('/profile',{name,email,password},config)
+  dispatch({
+    type:'UPDATE_USER_PROFILE_SUCCESS',
+    payload:{
+      updateProfile:data
+    }
+  })
+  }catch(error){
+    dispatch({
+      type:"UPDATE_USER_PROFILE_FAIL",
+      error: error.response && error.response.data ? error.response.data : error.message
+    })
+  }
+}
+

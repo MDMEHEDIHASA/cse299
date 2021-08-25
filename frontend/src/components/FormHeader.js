@@ -19,7 +19,9 @@ const FormHeader = ()=>{
     const {isLoading,userInfo,error} = userLogIn;
     const dispatch = useDispatch()
     useEffect(()=>{
-      if(userInfo.isStudent === false){
+      if(!userInfo){
+        history.push('/signin')
+      }else if(userInfo.isStudent === false){
         history.push('/')
         return;
       }

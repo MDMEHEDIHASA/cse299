@@ -54,15 +54,21 @@ const QuestionForm = () => {
 
    const questionState = useSelector(state=>state.createFormData)
    const {isLoading,allQuestions,error} = questionState
-   const userId = userInfo._id;
-   console.log(userId)
+//    const userId = userInfo._id;
+//    console.log(userId)
    
    console.log(allQuestions)
    let allQuestions2=[]
+
+   useEffect(()=>{
+    if(!userInfo){
+        history.push("/signin")
+    }   
+   },[history,userInfo])
    
   useEffect(async()=>{
       allQuestions2 =await allQuestions
-      console.log(allQuestions2)
+    //   console.log(allQuestions2)
   },[allQuestions,allQuestions2])
 
   const [questions, setQuestions] = useState([
@@ -85,7 +91,7 @@ const QuestionForm = () => {
    
   const submitHandler = async(e)=>{
         e.preventDefault()
-        dispatch(createForm(questionId,documentName,documentDescription,uniqueCode,userId))
+        dispatch(createForm(questionId,documentName,documentDescription,uniqueCode))
     }
 
 

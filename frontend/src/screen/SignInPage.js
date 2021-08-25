@@ -15,9 +15,9 @@ const SignInPage = ({history}) => {
     const {isLoading,userInfo,error} = signInInfo;
     
     useEffect(()=>{
-      if(userInfo){
-        history.push('/')
-      }else if(userInfo &&userInfo.isStudent === false){
+      if(!userInfo){
+        history.push('/signin')
+      }else{
         history.push('/')
       }
     },[dispatch,userInfo,history])

@@ -77,3 +77,26 @@ exports.getUserProfile = asyncHandler(async(req,res)=>{
     res.status(404).send(JSON.stringify("User Not found."))
   }
 })
+
+
+exports.updateUserProfile = asyncHandler(async(req,res)=>{
+  const user = await User.findOne({_id:req.user._id})
+  if(user){
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if(req.body.password){
+      const saltRounds = 10;
+      user.password = await bcrypt.hash(req.body.password, saltRounds);
+    }
+    const updateUser = await user.save();
+    res.status(201).json({
+      _id:updateUser._id,
+      name:updateUser.name,
+      email:updateUser.email,
+      isStudent:updateUser.isStudent,
+      token:generateToken(updateUser._id)
+    });
+  }else{
+    res.status(404).send(JSON.stringify("Sorry,this user is not found."))
+  }
+})

@@ -18,6 +18,9 @@ const GenerateCode = ({history}) => {
     const {isLoading:Loading,generateCode,error:error2} = generateQuestionCode;
     
     useEffect(()=>{
+        if(!userInfo){
+            history.push('/signin')
+        }
         if(userInfo.isStudent){
             history.push('/')
         }else if(userInfo.isStudent === false){

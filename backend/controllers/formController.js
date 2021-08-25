@@ -2,7 +2,7 @@ const CreateForm = require('../models/createFormDb')
 const asyncHandler = require('express-async-handler')
 
 exports.createPostForm = asyncHandler(async(req,res)=>{
-    const {questions,documentName,documentDescription,uniqueCode,userId} = req.body;
+    const {questions,documentName,documentDescription,uniqueCode} = req.body;
     
     try{
         const createForm = new CreateForm({
@@ -10,7 +10,7 @@ exports.createPostForm = asyncHandler(async(req,res)=>{
             documentName:documentName,
             documentDescription:documentDescription,
             uniqueCode:uniqueCode,
-            userId:userId,
+            userId:req.user._id,
         })
     
            questions.map(qus=>{
