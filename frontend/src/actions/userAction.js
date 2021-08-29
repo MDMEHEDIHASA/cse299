@@ -75,6 +75,14 @@ export const generateCodeAction = (code)=>async(dispatch,getState)=>{
     
     const {data} = await axios.post('/generateCode',{code},config)
 
+    // const {data2} = await axios.get('/sendResponse',{generateCode},config)
+    //     dispatch({
+    //         type:'GET_USER_RESPONSE_SUCCESS',
+    //         payload:{
+    //             gotResponse:data2
+    //         }
+    //     })
+
     dispatch({
       type:"CODE_SUCCESS",
       payload:{

@@ -4,22 +4,34 @@ import '../css/QuizQuestion.css'
 import Loader from '../screen/Loader'
 import HomePageHeader from '../screen/HomePageHeader';
 import {FormControlLabel,Link,Typography} from "@material-ui/core"
-import {sendStudentQuestionAction} from '../actions/sendStudentQuesionAction'
+import {sendStudentQuestionAction,postsendStudentResponse} from '../actions/sendStudentQuesionAction'
 import ErrorMessage from '../screen/ErrorMessage';
 
 
 const QuizQuestion = ({history})=>{
    const dispatch = useDispatch()
+   const userLogIn = useSelector(state=>state.userLogIn)
+   const {userInfo} = userLogIn;
    const allGenerate = useSelector(state=>state.codeGenerate);
    const sendStudentQuestion = useSelector(state=>state.sendStudentQuestion)
    const {isLoading,generateCode,error} = allGenerate;
    const {isLoading:isLoading2,success,error:error2} = sendStudentQuestion
 
    useEffect(()=>{
-     if(sendStudentQuestion.success){
-       document.location.href = '/successMessage'
+     if(userInfo.isStudent){
+       history.push('/')
      }
-   },[sendStudentQuestion,success,history])
+
+     if(sendStudentQuestion.success){
+       dispatch(postsendStudentResponse({generateCode:generateCode.uniqueCode,response:true}))
+       localStorage.removeItem('generateCode')
+       document.location.href = '/successMessage'
+      //  setTimeout(()=>{
+      //   document.location.href = '/successMessage'
+      //  },1000)
+       
+     }
+   },[sendStudentQuestion,success,history,userInfo,generateCode])
   
     let  questions;
 
@@ -45,6 +57,8 @@ const QuizQuestion = ({history})=>{
     rightQuestion2 = rightQuestion2.slice(0,rightQuestion2.length-1)
     dispatch(sendStudentQuestionAction({code:generateCode.uniqueCode,solutions:rightQuestion2}))
   }
+  
+
 
 
 

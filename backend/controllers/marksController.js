@@ -16,14 +16,14 @@ const transport =  nodemailer.createTransport(sendgridTransport({
 
 exports.postMarksController = async(req, res, next) => {
   const { solutions,code} =  req.body;
-  console.log(solutions)
+  // console.log(solutions)
   const email = req.user.email;
   const questionForm = await CreateForm.findOne({uniqueCode:code});
   //console.log(questionForm)
   let points = 0;
   let totalPoints = 0;
   const questionsFormQuestion = questionForm.questions
-  console.log(questionsFormQuestion);
+  // console.log(questionsFormQuestion);
   try {
       questionsFormQuestion.forEach(pt=>{
           totalPoints += pt.points;

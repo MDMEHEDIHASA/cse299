@@ -1,5 +1,4 @@
 import React from "react";
-import {Container} from 'react-bootstrap';
 import Header from "./components/Header";
 import Template from "./components/Template";
 import MainBody from "./components/MainBody";
@@ -25,13 +24,14 @@ function App() {
       <Route path='/signin' exact component={SignInPage}/>
       <Route path='/signup' exact component={SignUpPage}/>
       <Route path='/profile' exact component={UserProfile}/>
+      <Route path='/generateCode' exact component={GenerateCode}/>
       <Route path='/successMessage' exact component={SuccessAnswer}/>
         <Route path='/blankForm' exact>
             <Header/>
             <Template/>
             <MainBody/> 
         </Route>
-        <Route path='/generateCode' exact component={GenerateCode}/>
+        
         <Route path='/form/:id' exact>
           <FormHeader/>
           {/* <CenterTab/> */}
