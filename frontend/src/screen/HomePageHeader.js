@@ -14,14 +14,15 @@ const HomePageHeader = ()=>{
     return(
         <header>
         <h2>
-          <Link to='/' class="logo">
+          <Link to='/' className="logo">
             Quiz
           </Link>
         </h2>
-        <div class="navigation">
+        <div className="navigation">
           {(userInfo && userInfo.name) ?
-          <div style={{display:'flex',gap:'12%'}}>
+          <div style={{display:'flex',gap:'8%'}}>
           <Link to='/profile' className="btn" style={{background:'none'}}><button  className="btn">{userInfo.name}</button></Link>
+          {userInfo.isStudent && <Link to='/allGenerateCode' className="btn" style={{background:'none'}}><button  className="btn">Response</button></Link>}
           <button onClick={()=>{dispatch(LogoutAction())}} className="btn">Logout</button>
           </div>
           :

@@ -15,13 +15,14 @@ const productRoute = require('./routes/productRoute')
 const formRoute = require('./routes/formRoute')
 const marksRoute = require('./routes/marksRoute')
 const generateCodeRoute = require('./routes/generateCodeRoute')
-
+const questionResponseRouter = require('./routes/questionResponseRoute')
 
 app.use(bodyparser.json())
 app.use(userRoute);
 app.use(formRoute)
 app.use(marksRoute)
 app.use(generateCodeRoute)
+app.use(questionResponseRouter)
 app.use('/',homeRoute)
 app.use('/fm',productRoute)
 

@@ -6,6 +6,10 @@ const creatFormSchema = mongoose.Schema({
         required:true,
         ref:'User'
      },
+     response:{
+         type:Boolean,
+         default:true
+     },
     questions:[
         {
             questionText:{

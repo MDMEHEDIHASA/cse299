@@ -5,5 +5,6 @@ const protectMiddlewares = require('../middlewares/authMiddleWares')
 
 
 router.post('/marks',protectMiddlewares,marksController.postMarksController)
+// router.put('/marks',protectMiddlewares,marksController.postMarksController)
 
 module.exports = router

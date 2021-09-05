@@ -14,6 +14,8 @@ import GenerateCode from "./components/GenerateCode";
 import QuizQuestion from './components/QuizQuestion'
 import UserProfile from "./screen/UserProfile";
 import SuccessAnswer from "./components/SuccessAnswer";
+import QuestionResponses from "./screen/QuestionResponses";
+import AllGenerateCode  from "./screen/AllGenerateCode";
 
 
 function App() {
@@ -40,7 +42,8 @@ function App() {
           <Route path='/getQuestion' exact>
             <QuizQuestion/>
           </Route>
-          
+          <Route path='/allGenerateCode' exact component={AllGenerateCode}/>
+          <Route path='/questionResponses/:generateCode' exact component={QuestionResponses}/>
           
       </Switch>
     </Router>

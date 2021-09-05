@@ -13,27 +13,38 @@ const QuizQuestion = ({history})=>{
    const userLogIn = useSelector(state=>state.userLogIn)
    const {userInfo} = userLogIn;
    const allGenerate = useSelector(state=>state.codeGenerate);
+   console.log(allGenerate);
    const sendStudentQuestion = useSelector(state=>state.sendStudentQuestion)
    const {isLoading,generateCode,error} = allGenerate;
    const {isLoading:isLoading2,success,error:error2} = sendStudentQuestion
-
+   let  questions;
    useEffect(()=>{
+     if(typeof generateCode.questions==='undefined'){
+       history.push('/')
+     }
      if(userInfo.isStudent){
        history.push('/')
      }
-
+     
+     if(!allGenerate.generateCode){
+       history.push('/')
+     }
+     if(questions && questions.length === undefined){
+       document.location.href='/'
+     }
+     if(generateCode && generateCode.response === false){
+       localStorage.removeItem('generateCode')
+       document.location.href='/'
+     }
      if(sendStudentQuestion.success){
        dispatch(postsendStudentResponse({generateCode:generateCode.uniqueCode,response:true}))
        localStorage.removeItem('generateCode')
        document.location.href = '/successMessage'
-      //  setTimeout(()=>{
-      //   document.location.href = '/successMessage'
-      //  },1000)
        
      }
-   },[sendStudentQuestion,success,history,userInfo,generateCode])
+   },[sendStudentQuestion,success,history,userInfo,generateCode,questions,allGenerate])
   
-    let  questions;
+    
 
    if(generateCode){
      questions = generateCode.questions
@@ -44,7 +55,10 @@ const QuizQuestion = ({history})=>{
     'questionText':'',
     'userAnswer':''
    }]);
-  
+   
+    if(typeof questions ==='undefined'){
+      document.location.href='/'
+    }
    if(questions){
      questions.map(ques=>{
       sendOptionsAndAnswer.push({'questionText':ques.questionText,'answerKey':null})
@@ -54,12 +68,18 @@ const QuizQuestion = ({history})=>{
   const sendQuestionToBackend=(e)=>{
     e.preventDefault();
     let rightQuestion2 = rightQuestion;
-    rightQuestion2 = rightQuestion2.slice(0,rightQuestion2.length-1)
+    rightQuestion2 = rightQuestion2.filter(rq=> rq.questionText !== undefined)
+    // rightQuestion2 = rightQuestion2.slice(0,rightQuestion2.length-1)
+    //console.log(rightQuestion2)
     dispatch(sendStudentQuestionAction({code:generateCode.uniqueCode,solutions:rightQuestion2}))
   }
   
 
-
+  const [paragraph2,setParagraph2] = useState(null);
+  const onClickPargraph2 = (e)=>{
+      setParagraph2(e.target.value)
+      console.log(paragraph2)
+  }
 
 
     return(isLoading ? <Loader/> : <div>
@@ -75,7 +95,16 @@ const QuizQuestion = ({history})=>{
            {i+1}. {questions[i].questionText}
         </Typography>
         {questions[i].questionType === 'text' ? (
-            <input type='text' className='text_input' placeholder='write your answer here.' />
+            <input type='text' 
+            className='text_input' placeholder='write your answer here.' 
+            onChange={(e)=>{
+              let qs2 = [...rightQuestion,{'noQuestion':'none'}];
+              qs2[i].questionText = questions[i].questionText;
+              qs2[i].userAnswer = e.target.value
+              setRightQuestions(qs2)
+              console.log(rightQuestion)
+            }}
+            />
         )
         : 
         questions[i].options.map((op,j)=>(

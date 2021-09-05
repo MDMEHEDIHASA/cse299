@@ -1,5 +1,5 @@
 const CreateForm = require("../models/createFormDb");
-
+const OnlyMarks = require('../models/onlyMarksDb');
 const  nodemailer = require('nodemailer')
 const sendgridTransport  = require('nodemailer-sendgrid-transport');
 
@@ -16,10 +16,8 @@ const transport =  nodemailer.createTransport(sendgridTransport({
 
 exports.postMarksController = async(req, res, next) => {
   const { solutions,code} =  req.body;
-  // console.log(solutions)
   const email = req.user.email;
   const questionForm = await CreateForm.findOne({uniqueCode:code});
-  //console.log(questionForm)
   let points = 0;
   let totalPoints = 0;
   const questionsFormQuestion = questionForm.questions
@@ -33,7 +31,7 @@ exports.postMarksController = async(req, res, next) => {
       }else{
         for (let i = 0; i < solutions.length; i++) {
           if (solutions[i].questionText === questionsFormQuestion[i].questionText) {
-            if ((solutions[i].userAnswer === questionsFormQuestion[i].answerKey)) {
+            if ((solutions[i].userAnswer.toLowerCase() === questionsFormQuestion[i].answerKey.toLowerCase())) {
               points += questionsFormQuestion[i].points;
             } else {
               points = totalPoints - questionsFormQuestion[i].points;
@@ -42,7 +40,12 @@ exports.postMarksController = async(req, res, next) => {
             res.send("No question match.");
           }
         }
-        res.json(points);
+        const marks = await  OnlyMarks.create({
+          userId:req.user._id,
+          generateCode:code,
+          marks:`${points}/${totalPoints}`
+        })
+        res.json(marks);
         transport.sendMail({
           to:email,
           from:'mhd7894@outlook.com',

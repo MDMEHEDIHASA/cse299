@@ -34,7 +34,7 @@ const FormHeader = ()=>{
         <img src={fromImage} onClick={onClickImage} className="fromImage" alt="Image"/>
         <div className="from_header_right">
             
-            <img src={userImage} className='userImage2' alt="userImage" />
+            {/* <img src={userImage} className='userImage2' alt="userImage" /> */}
             <Navbar>
           <Container>
           <Nav className="me-auto">

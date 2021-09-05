@@ -31,36 +31,35 @@ export const createForm = (questions,documentName,documentDescription,uniqueCode
   }
 };
 
-// export const createForm = (questions)=>{
-//     return async(dispatch)=>{
-//         try{
-//             const {data} = await axios.post('/createForm')
-//             dispatch({type:'CREATE_FORM',payload:{product:data}})
-//         }catch(err){
-//             console.log(err)
-//         }
-//     }
-// }
 
-// const initalState={product:[]}
-// export const createFormReducer = (state=initalstate)=>{
-//     switch(action.type){
-//         case 'CREATE_FORM':
-//             return {...state,product:action.payload.product}
-//         default:
-//             return state
-//     }
-// }
-
-// import { combineReducers } from 'redux';
-// import createFrom from '../actions'
-
-// export const allReducer = combineReducers({
-//     createForm:createFormReducer
-// })
-
-// import {createStore} from 'redux'
-
-// const store = createStore(allReducer)
-
-// dispatch({type:'CREATE_FORM'})
+export const updateFormAction = (code,response)=>async(dispatch,getState)=>{
+  try {
+    dispatch({type:'UPDATE_FORM_LOADING'})
+    const {userLogIn} = getState()
+    const {userInfo} = userLogIn
+    const config = {
+      headers: {
+        'Content-Type':'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      },
+    };
+    const { data } = await axios.put("/updateForm",{code,response},config);
+    dispatch({
+      type: 'UPDATE_FORM_SUCCESS',
+      payload: {
+        questions: data,
+      },
+      
+    });
+    const {codeGenerate} = getState();
+    getState().codeGenerate = data
+    localStorage.setItem('generateCode', JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type:'UPDATE_FORM_FAIL',
+      payload:{
+        error: error.response && error.response.data ? error.response.data : error.message
+      }
+    })
+  }
+}

@@ -50,3 +50,16 @@ exports.createPostForm = asyncHandler(async(req,res)=>{
     
     
 })
+
+
+exports.responsesOnOff = asyncHandler(async(req,res)=>{
+    const {code,response} = req.body;
+    const findCode =await CreateForm.findOne({uniqueCode:code});
+    if(findCode){
+        findCode.response = response;
+        await findCode.save();
+        res.status(200).json(findCode)
+    }else{
+        res.status(401).send(JSON.stringify("Sorry don't find this code."))
+    }
+})

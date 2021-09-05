@@ -20,7 +20,7 @@ const getQuestionFromStorage = localStorage.getItem('generateCode') ? JSON.parse
 const initalState={
   createFormData:{allQuestions:allQuestionsFromStorage,isLoading:true},
   userLogIn:{userInfo:userInfoFromStroage},
-  codeGenerate:{generateCode:getQuestionFromStorage}
+  // codeGenerate:{generateCode:getQuestionFromStorage}
 
 }
 
