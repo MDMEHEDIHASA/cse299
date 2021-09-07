@@ -1,6 +1,9 @@
 {
   "name": "cse299",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
   "description": "Quiz",
   "main": "server.js",
   "scripts": {
@@ -10,14 +13,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "engines": {
-    "node": "14.x"
-  },
+  
   "author": "Mehedi",
   "license": "ISC",
-  "engines": {
-    "node": "14.x"
-  },
   "dependencies": {
     "async-handler": "0.0.3",
     "bcrypt": "^5.0.1",

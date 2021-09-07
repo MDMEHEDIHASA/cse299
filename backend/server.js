@@ -8,6 +8,9 @@ require('dotenv').config()
 
 // connectDB()
 
+
+
+
 const app = express()
 const homeRoute = require('./routes/homeRoutes')
 const userRoute = require('./routes/userRoute')
@@ -49,5 +52,7 @@ if(process.env.NODE_ENV==='production'){
     app.use('/',homeRoute)
 }
 
+const  PORT = process.env.PORT || 5000;
 
-app.listen(process.env.PORT || 5000,console.log('Server is connected'))
+
+app.listen(PORT,console.log('Server is connected'))
