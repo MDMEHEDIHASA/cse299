@@ -20,6 +20,7 @@ const generateCodeRoute = require('./routes/generateCodeRoute')
 const questionResponseRouter = require('./routes/questionResponseRoute')
 
 app.use(bodyparser.json())
+app.use(express.json())
 app.use(userRoute);
 app.use(formRoute)
 app.use(marksRoute)
