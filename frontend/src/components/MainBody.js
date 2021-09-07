@@ -35,7 +35,7 @@ const MainBody = ({history})=>{
     },[userInfo,dispatch])
 
 
-    return(<div className='mainbody'>
+    return(<div style={{minHeight:'200vh'}} className='mainbody'>
         <div className="mainbody_top">
             <div className="mainbody_top--left"  style={{fontWeight:'500'}}>
                 Recent Form
@@ -53,7 +53,7 @@ const MainBody = ({history})=>{
             </div>
         </div>
         <div className="mainbody_docs">
-        <main style={{marginTop:'1rem',marginLeft:'1rem',marginRight:'1rem' ,display: "grid",gridTemplateColumns: '25rem 25rem 25rem 25rem',gridGap:'4%'}}>
+        <main style={{marginTop:'1rem',marginLeft:'1rem',marginRight:'1rem' ,display: "grid",gridTemplateColumns: '25rem 25rem 25rem',gridGap:'4%'}}>
       {allGenerateCode.map((agc,i) => (
           <div key={i} className="ui-cards">
             <div className="card">

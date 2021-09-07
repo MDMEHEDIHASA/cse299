@@ -29,7 +29,7 @@ const AllGenerateCode = ({ history }) => {
       <div style={{ background: "#dee6e8" }}>
         <HomePageHeader />
       </div>
-      <main style={{marginTop:'3rem',marginLeft:'3rem',marginRight:'3rem' ,display: "grid",gridTemplateColumns: '25rem 25rem 25rem 25rem',gridGap:'4%'}}>
+      <main style={{marginTop:'3rem',marginLeft:'3rem',marginRight:'3rem' ,display: "grid",gridTemplateColumns: '25rem 25rem 25rem',gridGap:'4%'}}>
       {allGenerateCode.map((agc) => (
           <div className="ui-cards">
             <div className="card">

@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyparser = require('body-parser')
-const path = require('path');
+// const path = require('path');
 const mongoose = require('mongoose');
 
 const products = require('./products')
@@ -29,7 +29,7 @@ app.use(questionResponseRouter)
 
 app.use('/fm',productRoute)
 
-
+// const __dirname = path.resolve();
 
 
 mongoose.connect(process.env.MONGO_URI,
@@ -41,7 +41,7 @@ mongoose.connect(process.env.MONGO_URI,
     console.log(err)
 })
 
-__dirname = path.resolve();
+
 
 if(process.env.NODE_ENV==='production'){
     app.use(express.static(path.join(__dirname,'/frontend/build')))

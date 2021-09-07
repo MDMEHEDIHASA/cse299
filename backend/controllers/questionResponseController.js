@@ -35,7 +35,7 @@ exports.questionResponseControllerUsingCode = asyncHandler(async(req,res)=>{
     if(responses){
         for(let i=0;i<responses.length;i++){
                 const user = await User.findOne({_id:mongoose.Types.ObjectId(responses[i].userId)}).select('name email -_id')
-                const marks = await OnlyMarks.findOne({userId:responses[i].userId}).select('marks -_id')
+                const marks = await OnlyMarks.findOne({userId:responses[i].userId,generateCode:generateCode}).select('marks -_id')
                 // console.log(marks);
                 //console.log("user = ",user);
                     userInforamtion.push({name:user.name,email:user.email,marks:marks});

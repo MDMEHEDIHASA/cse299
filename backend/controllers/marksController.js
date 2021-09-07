@@ -24,8 +24,9 @@ exports.postMarksController = async(req, res, next) => {
   // console.log(questionsFormQuestion);
   try {
       questionsFormQuestion.forEach(pt=>{
-          totalPoints += pt.points;
+          totalPoints = totalPoints + pt.points;
       })
+      // console.log('Total poinst',totalPoints)
       if(questionForm.response === false){
         res.status(401).send(JSON.stringify("Sorry the response time is off. Better luck next time."))
       }
@@ -49,7 +50,7 @@ exports.postMarksController = async(req, res, next) => {
           marks:`${points}/${totalPoints}`
         })
         res.json(marks);
-        transport.sendMail({
+        await transport.sendMail({
           to:email,
           from:'mhd7894@outlook.com',
           subject:'Your quiz point',

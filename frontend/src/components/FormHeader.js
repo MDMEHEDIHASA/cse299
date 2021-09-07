@@ -36,7 +36,7 @@ const FormHeader = ()=>{
             
             {/* <img src={userImage} className='userImage2' alt="userImage" /> */}
             <Navbar>
-          <Container>
+          <Container style={{marginLeft:'65rem'}}>
           <Nav className="me-auto">
           <NavDropdown title={userInfo && userInfo.name} id="basic-nav-dropdown">
           <NavDropdown.Item onClick={()=>dispatch(LogoutAction())} style={{minWidth:'7rem'}} >LogOut</NavDropdown.Item>
