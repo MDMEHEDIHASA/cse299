@@ -51,9 +51,6 @@ export const updateFormAction = (code,response)=>async(dispatch,getState)=>{
       },
       
     });
-    const {codeGenerate} = getState();
-    getState().codeGenerate = data
-    localStorage.setItem('generateCode', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type:'UPDATE_FORM_FAIL',

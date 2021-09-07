@@ -3,10 +3,10 @@ import "../css/Header.css";
 import {Navbar,Container,NavDropdown,Nav} from 'react-bootstrap'
 // import MenuIcon from "@material-ui/icons/Menu";
 import { IconButton } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import AppIcon from "@material-ui/icons/Apps";
+// import SearchIcon from "@material-ui/icons/Search";
+// import AppIcon from "@material-ui/icons/Apps";
 import fromImage from "../images/forms.png";
-import userImage from "../images/g.jpg";
+// import userImage from "../images/g.jpg";
 import { useSelector,useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {LogoutAction} from '../actions/userAction'
@@ -14,7 +14,7 @@ import Sidebar from "./Sidebar";
 
 const Header = () => {
   const userLogIn = useSelector(state=>state.userLogIn)
-  const {isLoading,userInfo,error} = userLogIn;
+  const {userInfo} = userLogIn;
   const history = useHistory();
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -32,16 +32,16 @@ const Header = () => {
         <IconButton>
           <Sidebar />
         </IconButton>
-        <img src={fromImage} className="fromImage1" alt="Image" />
+        <img src={fromImage} style={{cursor:'pointer',width:'3%'}} onClick={(e)=>history.push('/')} className="fromImage1" alt="Image" />
         <div className="info">Forms</div>
       </div>
-      <div className="header_search">
+      {/* <div className="header_search">
         <IconButton>
           <SearchIcon />
         </IconButton>
 
         <input type="text" name="search" placeholder="Search" />
-      </div>
+      </div> */}
       <div className="header_right">
         {/* <IconButton><AppIcon /></IconButton> */}
         <Navbar>
@@ -53,25 +53,10 @@ const Header = () => {
           </Nav>
           </Container>
         </Navbar>
-        <img src={userImage} className="userImage1" alt="User Image" />
+        {/* <img src={userImage} className="userImage1" alt="User Image" /> */}
       </div>
     </div>
   );
 };
 
 export default Header;
-
-
-/*
-
-color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 2px 15px;
-    border-radius: 20px;
-    transition: 0.3s;
-    transition-property: background;
-    background: #fff;
-
-*/

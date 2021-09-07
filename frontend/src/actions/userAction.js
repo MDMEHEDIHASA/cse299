@@ -81,7 +81,7 @@ export const generateCodeAction = (code)=>async(dispatch,getState)=>{
         generateCode:data
       }
     })
-    localStorage.setItem('generateCode',JSON.stringify(data))
+    // localStorage.setItem('generateCode',JSON.stringify(data))
   }catch(error){
     dispatch({
         type:'CODE_FAIL',

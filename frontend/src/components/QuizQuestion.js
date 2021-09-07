@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import '../css/QuizQuestion.css'
 import Loader from '../screen/Loader'
 import HomePageHeader from '../screen/HomePageHeader';
-import {FormControlLabel,Link,Typography} from "@material-ui/core"
+import {FormControlLabel,Typography} from "@material-ui/core"
 import {sendStudentQuestionAction,postsendStudentResponse} from '../actions/sendStudentQuesionAction'
 import ErrorMessage from '../screen/ErrorMessage';
 
@@ -15,7 +15,7 @@ const QuizQuestion = ({history})=>{
    const allGenerate = useSelector(state=>state.codeGenerate);
    console.log(allGenerate);
    const sendStudentQuestion = useSelector(state=>state.sendStudentQuestion)
-   const {isLoading,generateCode,error} = allGenerate;
+   const {isLoading,generateCode} = allGenerate;
    const {isLoading:isLoading2,success,error:error2} = sendStudentQuestion
    let  questions;
    useEffect(()=>{

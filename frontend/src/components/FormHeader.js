@@ -1,22 +1,22 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 // import {FiStar,FiSettings} from 'react-icons/fi'
 // import {AiOutlineEye} from 'react-icons/ai'
 import '../css/FormHeader.css'
 import fromImage from "../images/forms.png";
 import {useSelector,useDispatch} from 'react-redux'
-import userImage from "../images/g.jpg";
+// import userImage from "../images/g.jpg";
 import { useHistory } from 'react-router-dom';
 import {Navbar,Container,NavDropdown,Nav} from 'react-bootstrap'
 import {LogoutAction} from '../actions/userAction'
 
 
 const FormHeader = ()=>{
-    const [value,setValue]  = useState('untitle')
+    // const [value,setValue]  = useState('untitle')
     const history = useHistory();
     const allState  = useSelector(state=>console.log(state))
     console.log(allState)
     const userLogIn = useSelector(state=>state.userLogIn)
-    const {isLoading,userInfo,error} = userLogIn;
+    const {userInfo} = userLogIn;
     const dispatch = useDispatch()
     useEffect(()=>{
       if(!userInfo){

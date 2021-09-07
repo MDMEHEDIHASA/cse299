@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyparser = require('body-parser')
-
+const path = require('path');
 const mongoose = require('mongoose');
 
 const products = require('./products')
@@ -23,7 +23,7 @@ app.use(formRoute)
 app.use(marksRoute)
 app.use(generateCodeRoute)
 app.use(questionResponseRouter)
-app.use('/',homeRoute)
+
 app.use('/fm',productRoute)
 
 
@@ -38,6 +38,16 @@ mongoose.connect(process.env.MONGO_URI,
     console.log(err)
 })
 
+__dirname = path.resolve();
+
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static(path.join(__dirname,'/frontend/build')))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
+    })
+}else{
+    app.use('/',homeRoute)
+}
 
 
 app.listen(5000,console.log('Server is connected'))

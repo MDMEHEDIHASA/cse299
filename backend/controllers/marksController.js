@@ -26,6 +26,9 @@ exports.postMarksController = async(req, res, next) => {
       questionsFormQuestion.forEach(pt=>{
           totalPoints += pt.points;
       })
+      if(questionForm.response === false){
+        res.status(401).send(JSON.stringify("Sorry the response time is off. Better luck next time."))
+      }
       if(questionsFormQuestion.length !== solutions.length){
         res.status(401).send(JSON.stringify("Fill up all the values."))
       }else{

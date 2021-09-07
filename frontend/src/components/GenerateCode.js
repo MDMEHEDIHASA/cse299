@@ -7,7 +7,7 @@ import Loader from "../screen/Loader";
 import HomePageHeader from "../screen/HomePageHeader";
 import {getStudentResponse} from '../actions/sendStudentQuesionAction'
 import {generateCodeAction} from '../actions/userAction'
-import {Redirect} from 'react-router'
+// import {Redirect} from 'react-router'
 
 
 const GenerateCode = ({history}) => {
@@ -18,7 +18,7 @@ const GenerateCode = ({history}) => {
     const generateQuestionCode = useSelector(state=>state.codeGenerate)
     const getStudentResponseState  = useSelector(state=>state.sendStudentResponseGet);
    
-    const {isLoading:Loading2,exist,gotResponse,error:error3} = getStudentResponseState
+    const {isLoading:Loading2,gotResponse,error:error3} = getStudentResponseState
     const {isLoading,userInfo,error} = signInInfo;
     const {isLoading:Loading,generateCode,error:error2} = generateQuestionCode;
 

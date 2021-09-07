@@ -1,13 +1,13 @@
 import React, { useEffect,useState } from 'react'
 import "../css/MainBody.css"
-import { Button, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import StorageIcon from '@material-ui/icons/Storage'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import FolderOpenIcon from '@material-ui/icons/FolderOpen'
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {useSelector,useDispatch} from 'react-redux'
-import rc from '../images/rc.PNG'
-import {Link} from 'react-router-dom'
+// import rc from '../images/rc.PNG'
+// import {Link} from 'react-router-dom'
 import {updateFormAction} from '../actions/createFormAction'
 import { allGenerateCodeAction} from '../actions/teacherResponseAction';
 
@@ -21,22 +21,18 @@ const MainBody = ({history})=>{
     today = mm + '/' + dd + '/' + yyyy;
     
     const [strs,setStrs] = useState(true)
-    const [len,setlen] = useState(0);
 
     const dispatch = useDispatch();
     const userLogIn = useSelector((state) => state.userLogIn);
     const {userInfo} = userLogIn;
     const allGC = useSelector((state) => state.allGC);
-    const { isLoading, allGenerateCode, error } = allGC;
+    const { allGenerateCode} = allGC;
     useEffect(()=>{
         if(userInfo.isStudent===false){
             history.push('/')
         }
         dispatch(allGenerateCodeAction())
-        if(allGenerateCode.length > 1){
-            setlen(allGenerateCode.length-1);
-        }
-    },[userInfo,dispatch,allGenerateCode])
+    },[userInfo,dispatch])
 
 
     return(<div className='mainbody'>

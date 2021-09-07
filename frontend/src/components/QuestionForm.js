@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch,useSelector} from 'react-redux'
-import { useHistory,useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import {
   CropOriginal,
@@ -9,7 +9,6 @@ import {
   Subject,
   FilterNone,
   AddCircleOutline,
-  Close,
   DragIndicator
 } from "@material-ui/icons";
 import {
@@ -46,7 +45,7 @@ const QuestionForm = () => {
 
    const dispatch = useDispatch()
    const history = useHistory()
-   const location = useLocation()
+//    const location = useLocation()
 
    const userLogIn  = useSelector(state=>state.userLogIn);
 

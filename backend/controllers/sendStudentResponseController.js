@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 
 exports.getStudentResponse = asyncHandler(async(req,res)=>{
     const generateCode = req.params.code;
-    console.log("code=",generateCode)
+    //console.log("code=",generateCode)
     // const checkResponse = await ResponseGot.findOne({generateCode:generateCode})
 
     const userExist = await ResponseGot.findOne({userId:req.user._id,generateCode:generateCode})
